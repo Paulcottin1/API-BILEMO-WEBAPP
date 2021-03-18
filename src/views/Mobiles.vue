@@ -1,11 +1,33 @@
 <template>
-  <div class="mobiles">
-    <h1>Mobiles page</h1>
+  <div class="container">
+    <header class="jumbotron">
+      <h3>{{content}}</h3>
+    </header>
   </div>
 </template>
 
 <script>
-</script>
+  import UserService from '../services/mobile.service';
 
-<style>
-</style>
+  export default {
+    name: 'Mobiles',
+    data() {
+      return {
+        content: ''
+      };
+    },
+    mounted() {
+      UserService.getMobiles().then(
+          response => {
+            this.content = response.data;
+          },
+          error => {
+            this.content =
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+          }
+      );
+    }
+  };
+</script>
