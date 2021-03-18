@@ -5,10 +5,11 @@
       <div v-if="!currentUser">
           <router-link to="/login" class="nav-link"> Login </router-link>
       </div>
-    </div>
-    <div v-if="currentUser">
-      <router-link to="/mobiles">Mobiles</router-link> |
-      <a class="nav-link" href @click.prevent="logOut">LogOut</a>
+      <div v-if="currentUser">
+        <router-link to="/mobiles">Mobiles</router-link> |
+        <router-link to="/clients">Clients</router-link> |
+        <a class="nav-link" href @click.prevent="logOut">LogOut</a>
+      </div>
     </div>
     <router-view/>
   </div>

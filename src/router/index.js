@@ -17,6 +17,11 @@ const routes = [
     component: () => import('@/views/Mobiles.vue')
   },
   {
+    path: '/clients',
+    name: 'clients',
+    component: () => import('@/views/Clients')
+  },
+  {
     path: '/login',
     component: Login
   }
