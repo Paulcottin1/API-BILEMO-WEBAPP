@@ -1,11 +1,15 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h1 class="margin-bottom">Clients</h1>
-      <li v-for="client in clients" v-bind:key="client.id" class="container container-flex">
-        <h2>{{ client.firstname}} {{client.lastname}}</h2>
-        <p> {{ client.email }}</p>
-      </li>
+      <div>
+        <h1 class="margin-bottom">Clients</h1>
+        <b-link @click="refresh" class="btn btn-primary"> Refresh </b-link>
+        <li v-for="client in clients" v-bind:key="client.id" class="container container-flex">
+          <h2>{{ client.firstname}} {{client.lastname}}</h2>
+          <p> {{ client.email }}</p>
+          <b-link @click="goToEdit(client.id)" class="btn btn-primary"> Edit </b-link>
+        </li>
+      </div>
     </header>
   </div>
 
@@ -18,20 +22,36 @@ export default {
   name: "Clients",
   data() {
     return  {
-      clients: ''
+      clients: '',
+      client: '',
+    }
+  },
+  methods: {
+    ...Vuex.mapActions('client', {
+      setClient: 'setClient',
+    }),
+    goToEdit(id) {
+      this.setClient(id).then(() => {
+        this.client = this.getClient
+        this.$router.push({name: 'clientEdit', params: {client: this.client}});
+      })
+    },
+    refresh() {
+      this.clients = this.getClients;
     }
   },
   computed: {
+    ...Vuex.mapGetters('client', {
+      getClients: 'getClients',
+      getClient: 'getClient'
+    }),
     ...Vuex.mapActions('client', {
       setClients: 'setClients'
     }),
-    ...Vuex.mapGetters('client', {
-      getClients: 'getClients'
-    })
   },
   created() {
-    this.setClients
-    this.clients = this.getClients
+    this.setClients;
+    this.clients = this.getClients;
   },
 }
 </script>

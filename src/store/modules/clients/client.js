@@ -1,8 +1,9 @@
 import Api from '@/services/index';
 
 const state = {
-    requestStatus: null,
-    clients: {}
+    requestStatus: '',
+    clients: {},
+    client: ''
 };
 
 const mutations = {
@@ -10,7 +11,10 @@ const mutations = {
         state.requestStatus = status;
     },
     SET_CLIENTS: (state, clients) => {
-        state.clients = clients
+        state.clients = clients;
+    },
+    SET_CLIENT: (state, client) => {
+        state.client = client;
     }
 };
 
@@ -23,6 +27,22 @@ const actions = {
             store.commit('SET_REQUEST_STATUS', error.response.status);
         })
     },
+    setClient: async (store, id) => {
+        await Api.Client.getClient(id).then((response) => {
+            store.commit('SET_REQUEST_STATUS', response.status);
+            store.commit('SET_CLIENT', response.data)
+        }).catch((error) => {
+            store.commit('SET_REQUEST_STATUS', error.response.status);
+        })
+    },
+    editClient: async (store, params) => {
+        await Api.Client.editClient(params['id'], params['data']).then((response) => {
+            store.commit('SET_REQUEST_STATUS', response.status);
+            store.commit('SET_CLIENT', response.data)
+        }).catch((error) => {
+            store.commit('SET_REQUEST_STATUS', error.response.status);
+        })
+    }
 };
 
 const getters = {
@@ -32,6 +52,9 @@ const getters = {
     getClients: state => {
         return state.clients;
     },
+    getClient: state => {
+        return state.client;
+    }
 };
 
 export default {

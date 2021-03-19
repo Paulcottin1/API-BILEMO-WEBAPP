@@ -22,6 +22,12 @@ const routes = [
     component: () => import('@/views/Clients')
   },
   {
+    path: '/clientEdit',
+    name: 'clientEdit',
+    props: true,
+    component: () => import('@/views/ClientEdit')
+  },
+  {
     path: '/login',
     component: Login
   }
