@@ -42,6 +42,14 @@ const actions = {
         }).catch((error) => {
             store.commit('SET_REQUEST_STATUS', error.response.status);
         })
+    },
+    addClient: async (store, params) => {
+        await Api.Client.addClient(params['data']).then((response) => {
+            store.commit('SET_REQUEST_STATUS', response.status);
+            store.commit('SET_CLIENT', response.data)
+        }).catch((error) => {
+            store.commit('SET_REQUEST_STATUS', error.response.status);
+        })
     }
 };
 

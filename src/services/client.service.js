@@ -12,6 +12,9 @@ class ClientService {
     editClient(id, data) {
         return Api().put('clients/' + id, JSON.stringify(data),{ headers: authHeader()} )
     }
+    addClient(data) {
+        return Api().post('clients', JSON.stringify(data),{ headers: authHeader()} )
+    }
 }
 
 export default new ClientService();

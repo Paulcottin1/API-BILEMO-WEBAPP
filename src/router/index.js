@@ -28,6 +28,11 @@ const routes = [
     component: () => import('@/views/ClientEdit')
   },
   {
+    path: '/clientAdd',
+    name: 'clientAdd',
+    component: () => import('@/views/ClientAdd')
+  },
+  {
     path: '/login',
     component: Login
   }
