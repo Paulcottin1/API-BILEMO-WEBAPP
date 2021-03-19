@@ -35,6 +35,13 @@ const actions = {
             store.commit('SET_REQUEST_STATUS', error.response.status);
         })
     },
+    deleteClient: async (store, id) => {
+        await Api.Client.deleteClient(id).then((response) => {
+            store.commit('SET_REQUEST_STATUS', response.status);
+        }).catch((error) => {
+            store.commit('SET_REQUEST_STATUS', error.response.status);
+        })
+    },
     editClient: async (store, params) => {
         await Api.Client.editClient(params['id'], params['data']).then((response) => {
             store.commit('SET_REQUEST_STATUS', response.status);
