@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h1 class="margin-bottom">Mobiles</h1>
-      <li v-for="mobile in mobiles" v-bind:key="mobile" class="container container-flex">
+      <li v-for="mobile in mobiles" v-bind:key="mobile.id" class="container container-flex">
         <div class="flex">
           <h2>{{mobile.name}}</h2>
           <h3>{{mobile.price}}€</h3>
