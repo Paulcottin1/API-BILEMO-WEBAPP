@@ -6,7 +6,7 @@
         <p>{{error}}</p>
         <b-link @click="refresh" class="btn btn-primary"> Refresh </b-link>
         <b-link @click="$router.push('clientAdd')" class="btn btn-primary"> Add new client </b-link>
-        <li v-for="client in clients" v-bind:key="client.id" class="container container-flex">
+        <li v-for="client in getClients" v-bind:key="client.id" class="container container-flex">
           <h2>{{ client.firstname}} {{client.lastname}}</h2>
           <p> {{ client.email }}</p>
           <b-link @click="goToEdit(client.id)" class="btn btn-primary"> Edit </b-link>
@@ -26,8 +26,6 @@ export default {
   error: '',
   data() {
     return  {
-      clients: '',
-      client: '',
     }
   },
   methods: {
@@ -37,22 +35,21 @@ export default {
     }),
     goToEdit(id) {
       this.setClient(id).then(() => {
-        this.client = this.getClient
-        this.$router.push({name: 'clientEdit', params: {client: this.client}});
+        this.$router.push({name: 'clientEdit', params: {client: this.getClient}});
       })
     },
     goToDelete(id) {
       this.deleteClient(id).then(() => {
         if (this.getRequestStatus === 204) {
+          this.$router.go(0);
           this.error = 'Success !'
-          this.clients = this.setClients
         } else {
           this.error = 'There is an error'
         }
       })
     },
     refresh() {
-      this.clients = this.getClients;
+      this.$router.go(0);
     }
   },
   computed: {
@@ -67,7 +64,6 @@ export default {
   },
   created() {
     this.setClients;
-    this.clients = this.getClients;
   },
 }
 </script>
